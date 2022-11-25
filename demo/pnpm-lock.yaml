@@ -538,6 +538,16 @@ packages:
       caip: 1.1.0
     dev: false
 
+  /@didtools/pkh-ethereum/0.0.2:
+    resolution: {integrity: sha512-ka+iwlvBCVQqO3btZ1wssAm0VmG25nqZkD1rSV5IRT8LNAvne2cjKzt/hMutK9PULMD/yJRifwFupgfu7JI9Cg==}
+    engines: {node: '>=14.14'}
+    dependencies:
+      '@didtools/cacao': 1.0.0
+      '@ethersproject/wallet': 5.7.0
+      '@stablelib/random': 1.0.2
+      caip: 1.1.0
+    dev: false
+
   /@didtools/pkh-solana/0.0.1:
     resolution: {integrity: sha512-l/rimusjUDl3bEGD+os7YqxyNpY9545e4a+qXeqDxNX2kfndnAa4Oz+GOPSll9Q9sTgnB5DeuOMbmYxzHxNDqw==}
     engines: {node: '>=14.14'}
@@ -1860,6 +1870,11 @@ packages:
       '@multiformats/base-x': 4.0.1
     dev: false
 
+  /multiformats/10.0.2:
+    resolution: {integrity: sha512-nJEHLFOYhO4L+aNApHhCnWqa31FyqAHv9Q77AhmwU3KsM2f1j7tuJpCk5ByZ33smzycNCpSG5klNIejIyfFx2A==}
+    engines: {node: '>=16.0.0', npm: '>=7.0.0'}
+    dev: false
+
   /multiformats/9.9.0:
     resolution: {integrity: sha512-HoMUjhH9T8DDBNT+6xzkrd9ga/XiBI4xLr58LJACwK6G3HTOPeMz4nB4KJs33L2BelrIJa7P0VuNaVF3hMYfjg==}
     dev: false
@@ -2139,6 +2154,13 @@ packages:
       multiformats: 9.9.0
     dev: false
 
+  /uint8arrays/4.0.2:
+    resolution: {integrity: sha512-8CWXXZdOvVrIL4SeY/Gnp+idxxiGK4XFkP4FY26Sx/fpTz/b6vv4BVWELMDzQweSyyhdcuAcU14H6izzB6k1Cw==}
+    engines: {node: '>=16.0.0', npm: '>=7.0.0'}
+    dependencies:
+      multiformats: 10.0.2
+    dev: false
+
   /update-browserslist-db/1.0.10_browserslist@4.21.4:
     resolution: {integrity: sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ==}
     hasBin: true
@@ -2206,15 +2228,28 @@ packages:
       webidl-conversions: 3.0.1
     dev: false
 
+  file:../js-did/packages/cacao/didtools-cacao-1.0.1.tgz:
+    resolution: {integrity: sha512-2DuHB7d5cvr23AJP5wN2B5rbe7cmvF/aofIOj59W7Aolo2ERtLjGas+KxJ0Z3Pu0NVw4RFozkGOBk60AckYf+A==, tarball: file:../js-did/packages/cacao/didtools-cacao-1.0.1.tgz}
+    name: '@didtools/cacao'
+    version: 1.0.1
+    engines: {node: '>=14.14'}
+    dependencies:
+      '@ipld/dag-cbor': 7.0.3
+      apg-js: 4.1.2
+      caip: 1.1.0
+      multiformats: 9.9.0
+      uint8arrays: 4.0.2
+    dev: false
+
   file:../js-did/packages/did-session/did-session-1.0.0.tgz:
-    resolution: {integrity: sha512-4OCZCE5dDcKaucWO+VakxSX6XuogJIckSw/96XTmtQhGxr5raM6skxC7w1bSeraK9UjhUIr/wyilqsWRm8OLqA==, tarball: file:../js-did/packages/did-session/did-session-1.0.0.tgz}
+    resolution: {integrity: sha512-QYhYB67CeFVSxUKnlb0jE5LOqQYG3ifpi1Vb8RsDeYLXuAds2jMjcyZiKnPGblVyuVjAVNCttWmUAfo/F8hv4w==, tarball: file:../js-did/packages/did-session/did-session-1.0.0.tgz}
     name: did-session
     version: 1.0.0
     engines: {node: '>=14.14'}
     dependencies:
       '@ceramicnetwork/stream-tile': 2.9.0
       '@stablelib/random': 1.0.2
-      dids: 3.4.0
+      dids: file:../js-did/packages/dids/dids-3.4.1.tgz
       key-did-provider-ed25519: 2.0.1
       key-did-resolver: 2.3.0
       uint8arrays: 3.1.1
@@ -2222,13 +2257,30 @@ packages:
       - encoding
     dev: false
 
+  file:../js-did/packages/dids/dids-3.4.1.tgz:
+    resolution: {integrity: sha512-TY5iIIPIyozlrsqagDZsTBowr8lBQRgzZyom/ivdzEYlKZeHMeJ00qSbQR9mQY4hTBR8WWacHu36ICnCOft/Zw==, tarball: file:../js-did/packages/dids/dids-3.4.1.tgz}
+    name: dids
+    version: 3.4.1
+    engines: {node: '>=14.14'}
+    dependencies:
+      '@didtools/cacao': 1.0.0
+      '@didtools/pkh-ethereum': 0.0.2
+      '@stablelib/random': 1.0.2
+      dag-jose-utils: 2.0.0
+      did-jwt: 6.9.0
+      did-resolver: 3.2.2
+      multiformats: 9.9.0
+      rpc-utils: 0.6.2
+      uint8arrays: 3.1.1
+    dev: false
+
   file:../js-did/packages/pkh-tezos/didtools-pkh-tezos-0.0.1.tgz:
-    resolution: {integrity: sha512-TcQk/aQVOd5Y2xtv89VrLl4bZ28yIhtwanIDPEiRtYQ1jBKVOGrIzy3NL9/f1PJjS+pfHfd2e+RIQPTecyXoSQ==, tarball: file:../js-did/packages/pkh-tezos/didtools-pkh-tezos-0.0.1.tgz}
+    resolution: {integrity: sha512-Fatga4cp/SD+eCGUSfUH9cDn8q9zlqRAYf0qT7QcKVQqjgKZr+8ZwoL/dpxvrbSGYW96vdVMnr6qrhTS/UcHdA==, tarball: file:../js-did/packages/pkh-tezos/didtools-pkh-tezos-0.0.1.tgz}
     name: '@didtools/pkh-tezos'
     version: 0.0.1
     engines: {node: '>=14.14'}
     dependencies:
-      '@didtools/cacao': 1.0.0
+      '@didtools/cacao': file:../js-did/packages/cacao/didtools-cacao-1.0.1.tgz
       '@stablelib/random': 1.0.2
       '@taquito/utils': 14.1.0
       caip: 1.1.0

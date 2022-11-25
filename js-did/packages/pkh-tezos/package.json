@@ -46,7 +46,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@didtools/cacao": "workspace:^1.0.0",
+    "@didtools/cacao": "file:/Users/me/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz",
     "@stablelib/random": "^1.0.2",
     "@taquito/utils": "^14.0.0",
     "caip": "^1.1.0"

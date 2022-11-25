@@ -107,7 +107,7 @@ importers:
       '@ceramicnetwork/stream-model-instance': ^0.4.2
       '@ceramicnetwork/stream-tile': ^2.4.4
       '@ceramicnetwork/streamid': ^2.3.4
-      '@didtools/cacao': workspace:^1.0.0
+      '@didtools/cacao': file:/Users/hedongliu/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz
       '@didtools/pkh-ethereum': workspace:^0.0.2
       '@didtools/pkh-solana': workspace:^0.0.3
       '@ethersproject/wallet': ^5.6.2
@@ -118,7 +118,7 @@ importers:
       '@types/secp256k1': ^4.0.3
       ajv-formats: ^2.1.1
       caip: ^1.1.0
-      dids: workspace:^3.2.0
+      dids: file:/Users/hedongliu/Documents/GitHub/tezos-ceramic/js-did/packages/dids/dids-3.4.1.tgz
       jest-environment-ceramic: workspace:^0.16.0
       key-did-provider-ed25519: workspace:^2.0.1
       key-did-resolver: workspace:^2.1.2
@@ -126,7 +126,7 @@ importers:
     dependencies:
       '@ceramicnetwork/stream-tile': 2.4.5
       '@stablelib/random': 1.0.2
-      dids: link:../dids
+      dids: file:packages/dids/dids-3.4.1.tgz
       key-did-provider-ed25519: link:../key-did-provider-ed25519
       key-did-resolver: link:../key-did-resolver
       uint8arrays: 3.1.1
@@ -135,7 +135,7 @@ importers:
       '@ceramicnetwork/stream-model': 0.6.1
       '@ceramicnetwork/stream-model-instance': 0.4.3
       '@ceramicnetwork/streamid': 2.3.5
-      '@didtools/cacao': link:../cacao
+      '@didtools/cacao': file:packages/cacao/didtools-cacao-1.0.1.tgz
       '@didtools/pkh-ethereum': link:../pkh-ethereum
       '@didtools/pkh-solana': link:../pkh-solana
       '@ethersproject/wallet': 5.7.0
@@ -318,13 +318,13 @@ importers:
 
   packages/pkh-tezos:
     specifiers:
-      '@didtools/cacao': workspace:^1.0.0
+      '@didtools/cacao': file:/Users/hedongliu/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz
       '@stablelib/random': ^1.0.2
       '@taquito/utils': ^14.0.0
       caip: ^1.1.0
       typescript: ^4.5.4
     dependencies:
-      '@didtools/cacao': link:../cacao
+      '@didtools/cacao': file:packages/cacao/didtools-cacao-1.0.1.tgz
       '@stablelib/random': 1.0.2
       '@taquito/utils': 14.0.0
       caip: 1.1.0
@@ -2438,6 +2438,16 @@ packages:
       '@ethersproject/wallet': 5.7.0
       '@stablelib/random': 1.0.2
       caip: 1.1.0
+
+  /@didtools/pkh-ethereum/0.0.2:
+    resolution: {integrity: sha512-ka+iwlvBCVQqO3btZ1wssAm0VmG25nqZkD1rSV5IRT8LNAvne2cjKzt/hMutK9PULMD/yJRifwFupgfu7JI9Cg==}
+    engines: {node: '>=14.14'}
+    dependencies:
+      '@didtools/cacao': 1.0.0
+      '@ethersproject/wallet': 5.7.0
+      '@stablelib/random': 1.0.2
+      caip: 1.1.0
+    dev: false
 
   /@didtools/pkh-solana/0.0.1:
     resolution: {integrity: sha512-l/rimusjUDl3bEGD+os7YqxyNpY9545e4a+qXeqDxNX2kfndnAa4Oz+GOPSll9Q9sTgnB5DeuOMbmYxzHxNDqw==}
@@ -12723,7 +12733,6 @@ packages:
   /multiformats/10.0.2:
     resolution: {integrity: sha512-nJEHLFOYhO4L+aNApHhCnWqa31FyqAHv9Q77AhmwU3KsM2f1j7tuJpCk5ByZ33smzycNCpSG5klNIejIyfFx2A==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
-    dev: false
 
   /multiformats/9.9.0:
     resolution: {integrity: sha512-HoMUjhH9T8DDBNT+6xzkrd9ga/XiBI4xLr58LJACwK6G3HTOPeMz4nB4KJs33L2BelrIJa7P0VuNaVF3hMYfjg==}
@@ -16105,7 +16114,6 @@ packages:
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
       multiformats: 10.0.2
-    dev: false
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
@@ -16926,4 +16934,33 @@ packages:
 
   /zwitch/1.0.5:
     resolution: {integrity: sha512-V50KMwwzqJV0NpZIZFwfOD5/lyny3WlSzRiXgA0G7VUnRlqttta1L6UQIHzd6EuBY/cHGfwTIck7w1yH6Q5zUw==}
+    dev: false
+
+  file:packages/cacao/didtools-cacao-1.0.1.tgz:
+    resolution: {integrity: sha512-2DuHB7d5cvr23AJP5wN2B5rbe7cmvF/aofIOj59W7Aolo2ERtLjGas+KxJ0Z3Pu0NVw4RFozkGOBk60AckYf+A==, tarball: file:packages/cacao/didtools-cacao-1.0.1.tgz}
+    name: '@didtools/cacao'
+    version: 1.0.1
+    engines: {node: '>=14.14'}
+    dependencies:
+      '@ipld/dag-cbor': 7.0.3
+      apg-js: 4.1.2
+      caip: 1.1.0
+      multiformats: 9.9.0
+      uint8arrays: 4.0.2
+
+  file:packages/dids/dids-3.4.1.tgz:
+    resolution: {integrity: sha512-TY5iIIPIyozlrsqagDZsTBowr8lBQRgzZyom/ivdzEYlKZeHMeJ00qSbQR9mQY4hTBR8WWacHu36ICnCOft/Zw==, tarball: file:packages/dids/dids-3.4.1.tgz}
+    name: dids
+    version: 3.4.1
+    engines: {node: '>=14.14'}
+    dependencies:
+      '@didtools/cacao': 1.0.0
+      '@didtools/pkh-ethereum': 0.0.2
+      '@stablelib/random': 1.0.2
+      dag-jose-utils: 2.0.0
+      did-jwt: 6.9.0
+      did-resolver: 3.2.2
+      multiformats: 9.9.0
+      rpc-utils: 0.6.2
+      uint8arrays: 3.1.1
     dev: false
