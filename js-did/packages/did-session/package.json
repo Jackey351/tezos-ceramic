@@ -42,7 +42,7 @@
   "dependencies": {
     "@ceramicnetwork/stream-tile": "^2.4.4",
     "@stablelib/random": "^1.0.1",
-    "dids": "file:/Users/me/Documents/GitHub/tezos-ceramic/js-did/packages/dids/dids-3.4.1.tgz",
+    "dids": "workspace:^3.2.0",
     "key-did-provider-ed25519": "workspace:^2.0.1",
     "key-did-resolver": "workspace:^2.1.2",
     "uint8arrays": "^3.0.0"
@@ -57,7 +57,7 @@
     "@types/create-hash": "^1.2.2",
     "@types/secp256k1": "^4.0.3",
     "ajv-formats": "^2.1.1",
-    "@didtools/cacao": "file:/Users/me/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz",
+    "@didtools/cacao": "workspace:^1.0.0",
     "caip": "^1.1.0",
     "@didtools/pkh-ethereum": "workspace:^0.0.2",
     "@didtools/pkh-solana": "workspace:^0.0.3",

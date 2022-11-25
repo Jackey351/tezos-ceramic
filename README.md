@@ -36,23 +36,7 @@ pnpm install
 pnpm build
 ```
 
-## 2.修改代码
-dids 库
-```
-# 根目录下
-js-did/packages/did-session/package.json
-"dids": "file:/Users/me/Documents/GitHub/tezos-ceramic/js-did/packages/dids/dids-3.4.1.tgz",
-"@didtools/cacao": "file:/Users/me/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz",
-引用路径改写为自己电脑中对应文件的绝对路径
-```
-```
-# 根目录下
-js-did/packages/pkh-tezos/package.json
-"@didtools/cacao": "file:/Users/me/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz",
-引用路径改写为自己电脑中对应文件的绝对路径
-```
-
-## 3. 打包相应库
+## 2. 打包相应库
 
 dids 库
 
@@ -70,6 +54,32 @@ cd js-did/packages/cacao
 pnpm pack
 ```
 
+## 3. 修改代码
+dids 库
+```
+# 根目录下
+js-did/packages/did-session/package.json
+
+"dids": "workspace:^3.2.0",
+"@didtools/cacao": "workspace:^1.0.0",
+
+将以上两个库的路径改成 file:自己电脑中对应文件的绝对路径
+
+如："dids": "file:/Users/me/Documents/GitHub/tezos-ceramic/js-did/packages/dids/dids-3.4.1.tgz",
+"@didtools/cacao": "file:/Users/me/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz",
+```
+```
+# 根目录下
+js-did/packages/pkh-tezos/package.json
+
+"@didtools/cacao": "workspace:^1.0.0",
+
+将该库的路径改成 file:自己电脑中对应文件的绝对路径
+
+如："@didtools/cacao": "file:/Users/me/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz",
+```
+
+## 4. 打包相应库
 @didtools/pkh-tezos 库
 
 ```
@@ -84,7 +94,7 @@ cd js-did/packages/did-session
 pnpm pack
 ```
 
-## 4. 安装 js-ceramic 依赖
+## 5. 安装 js-ceramic 依赖
 
 dids 和 cacao 库的 link 已经写进 js-ceramic 各个子库的配置中了，直接安装即可
 
@@ -95,7 +105,7 @@ npm install --force
 npm run build
 ```
 
-## 5. 本地启动 ceramic daemon
+## 6. 本地启动 ceramic daemon
 
 在单独的一个 terminal 里运行
 
@@ -107,7 +117,7 @@ node ./packages/cli/bin/ceramic.js daemon
 
 之后 ceramic daemon 会运行在 localhost:7007
 
-## 6. 运行 demo
+## 7. 运行 demo
 
 ```
 # 根目录下
@@ -118,7 +128,7 @@ pnpm run dev
 
 调试代码写在 `./src/App.tsx`
 
-## 7. 验证
+## 8. 验证
 
 加入如下代码（目前是已经加上的）后在服务器运行ceramic daemon，签名可以验证通过，并且可以正常创建stream; 如果删除这段代码，则签名会验证失败，且不能正常创建stream。
 
