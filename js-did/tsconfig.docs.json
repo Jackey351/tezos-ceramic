@@ -1,0 +1,40 @@
+{
+  "extends": "./tsconfig.build.json",
+  "include": [
+    "./packages/did-session/src", 
+    "./packages/dids/src",
+    "./packages/pkh-ethereum/src",
+    "./packages/pkh-solana/src",
+    "./packages/key-did-provider-ed25519/src",
+    "./packages/key-did-provider-secp256k1/src",
+    "./packages/key-did-resolver/src",
+    "./packages/pkh-did-resolver/src"
+  ],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "lib": ["DOM", "ES2020"],
+    "skipLibCheck": true
+  },
+  "typedocOptions": {
+    "name": "DIDs API",
+    "readme": "none",
+    "entryDocument": "index.md",
+    "entryPoints": [
+      "./packages/did-session/src/index.ts", 
+      "./packages/dids/src/index.ts",
+      "./packages/pkh-ethereum/src/index.ts",
+      "./packages/pkh-solana/src/index.ts",
+      "./packages/key-did-provider-ed25519/src/index.ts",
+      "./packages/key-did-provider-secp256k1/src/index.ts",
+      "./packages/key-did-resolver/src/index.ts",
+      "./packages/pkh-did-resolver/src/index.ts"
+    ],
+    "disableSources": true,
+    "excludeExternals": true,
+    "excludeInternal": true,
+    "excludePrivate": true,
+    "githubPages": false,
+    "hideBreadcrumbs": true,
+    "hideInPageTOC": true
+  }
+}

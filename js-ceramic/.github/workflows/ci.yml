@@ -1,0 +1,118 @@
+name: Dagger CI Workflow
+
+on:
+  repository_dispatch:
+    types: [test-success]
+  workflow_dispatch: # manually triggered
+
+env:
+  # Dagger
+  DAGGER_PLAN: cue.mod/pkg/github.com/3box/pipeline-tools/ci/plans/ceramic.cue
+  STATUS_PLAN: cue.mod/pkg/github.com/3box/pipeline-tools/ci/plans/status.cue
+  DAGGER_LOG_FORMAT: "plain"
+  # Secrets
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  # Miscellaneous
+  RUN_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+  STATUS_URL: "https://api.github.com/repos/ceramicnetwork/js-ceramic/statuses/${{ github.event.client_payload.sha || github.sha }}"
+  BRANCH: ${{ github.event.client_payload.branch || github.ref_name }}
+  SHA: ${{ github.event.client_payload.sha || github.sha }}
+
+jobs:
+  image:
+    name: Verify and publish Docker image
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          # Use specified SHA, otherwise use the branch
+          ref: ${{ github.event.client_payload.sha || env.BRANCH }}
+      -
+        name: Install Dagger
+        uses: dagger/dagger-for-github@v3
+        with:
+          install-only: true
+      -
+        name: Setup Dagger
+        run: |
+          dagger project init
+          dagger project update
+          dagger project update "github.com/3box/pipeline-tools/ci"
+      -
+        name: Set commit status "pending"
+        run: dagger do pending -p ${{ env.STATUS_PLAN }}
+      -
+        name: Set sha tag
+        run: |
+          SHA_TAG=$(echo ${{ env.SHA }} | head -c 12)
+          echo "SHA_TAG=$SHA_TAG" >> $GITHUB_ENV
+      -
+        name: Set main branch tag
+        if: ${{ env.BRANCH == 'main' }}
+        run: |
+          echo "ENV_TAG=prod" >> $GITHUB_ENV
+      -
+        name: Set rc branch tag
+        if: ${{ env.BRANCH == 'release-candidate' }}
+        run: |
+          echo "ENV_TAG=tnet" >> $GITHUB_ENV
+      -
+        name: Set develop branch tag
+        if: ${{ env.BRANCH == 'develop' || env.ENV_TAG == '' }}
+        run: |
+          echo "ENV_TAG=dev" >> $GITHUB_ENV
+      -
+        name: Verify Docker image
+        run: dagger do verify -p ${{ env.DAGGER_PLAN }}
+      -
+        name: Set publish flag
+        if: ${{ env.BRANCH == 'main' || env.BRANCH == 'release-candidate' || env.BRANCH == 'develop' }}
+        run: echo "PUBLISH=true" >> $GITHUB_ENV
+      -
+        name: Get version
+        if: ${{ env.PUBLISH == 'true' }}
+        run: echo "VERSION=$(dagger do -l error --output-format json version -p ${{ env.DAGGER_PLAN }} | jq -r '.version')" >> $GITHUB_ENV
+      -
+        name: Push Docker image
+        if: ${{ env.PUBLISH == 'true' }}
+        run: dagger do push -w "actions:push:\"${{ env.AWS_REGION }}\":\"${{ env.ENV_TAG }}\":\"${{ env.BRANCH }}\":\"${{ env.SHA }}\":\"${{ env.SHA_TAG }}\":\"${{ env.VERSION }}\":_" -p ${{ env.DAGGER_PLAN }}
+      -
+        name: Create deployment job
+        if: ${{ env.PUBLISH == 'true' }}
+        run: dagger do -l error deploy -w "actions:deploy:\"${{ env.AWS_REGION }}\":\"${{ env.ENV_TAG }}\":latest:\"${{ env.SHA_TAG }}\":_" -p ${{ env.DAGGER_PLAN }}
+      -
+        name: Set commit status "success"
+        run: dagger do success -p ${{ env.STATUS_PLAN }}
+      -
+        name: Set commit status "failure"
+        if: ${{ failure() }}
+        run: dagger do failure -p ${{ env.STATUS_PLAN }}
+
+  docs:
+    name: Publish docs
+    runs-on: ubuntu-latest
+    if: ${{ github.event.client_payload.branch == 'main' || github.ref_name == 'main' }}
+    needs: image
+    steps:
+      -
+        name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      -
+        name: Publish docs
+        uses: dagger/dagger-for-github@v3
+        with:
+          cmds: |
+            project init
+            project update
+            project update "github.com/3box/pipeline-tools/ci@v${{ env.PIPELINE_TOOLS_VER }}"
+            do docs -p ${{ env.DAGGER_PLAN }}

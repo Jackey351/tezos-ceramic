@@ -1,0 +1,20 @@
+{
+  "out": "./docs/reference/typescript",
+  "entryPoints": ["packages/*"],
+  "entryPointStrategy": "packages",
+  "exclude": [
+    "**/node_modules/**",
+    "**/*.test.ts",
+    "**/__mocks__/*.ts"
+  ],
+  "name": "Ceramic Typescript Implementation",
+  "excludePrivate": true,
+  "excludeExternals": true,
+  "validation": {
+    "invalidLink": true,
+    "notExported": true
+  },
+  "hideGenerator": true,
+  "media": "./docs-src/media",
+  "readme": "./README.md"
+}
