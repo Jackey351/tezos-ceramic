@@ -44,9 +44,10 @@
   },
   "dependencies": {
     "@ceramicnetwork/streamid": "^2.7.0",
-    "@didtools/cacao": "^1.0.0",
+    "@didtools/cacao": "file:../js-did/packages/cacao/didtools-cacao-1.0.1.tgz",
     "@didtools/pkh-ethereum": "^0.0.1",
     "@didtools/pkh-solana": "^0.0.1",
+    "@didtools/pkh-tezos": "file:../js-did/packages/pkh-tezos/didtools-pkh-tezos-0.0.1.tgz",
     "@stablelib/random": "^1.0.1",
     "caip": "~1.1.0",
     "cross-fetch": "^3.1.4",
@@ -63,7 +64,7 @@
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/logfmt": "^1.2.2",
     "@types/node": "^18.0.3",
-    "dids": "^3.4.0",
+    "dids": "file:../js-did/packages/dids/dids-3.4.1.tgz",
     "ipfs-core-types": "~0.9.0",
     "json-schema-to-typescript": "^10.1.5",
     "typescript-json-schema": "^0.52.0"

@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@ceramicnetwork/streamid": "^2.7.0",
-    "@didtools/cacao": "^1.0.0",
+    "@didtools/cacao": "file:../js-did/packages/cacao/didtools-cacao-1.0.1.tgz",
     "@stablelib/random": "^1.0.1",
     "@stablelib/sha256": "^1.0.1",
     "caip": "~1.1.0",

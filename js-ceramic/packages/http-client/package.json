@@ -50,7 +50,7 @@
     "rxjs": "^7.5.2"
   },
   "devDependencies": {
-    "dids": "^3.4.0",
+    "dids": "file:../js-did/packages/dids/dids-3.4.1.tgz",
     "key-did-resolver": "^2.3.0",
     "multiformats": "^9.5.8"
   },
