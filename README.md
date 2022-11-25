@@ -69,7 +69,6 @@ pnpm pack
 ```
 
 ## 5. 修改代码
-dids 库
 ```
 # 根目录下
 js-did/packages/did-session/package.json
@@ -94,6 +93,7 @@ js-did/packages/pkh-tezos/package.json
 ```
 
 ## 6. 打包相应库
+
 @didtools/pkh-tezos 库
 
 ```
@@ -101,6 +101,8 @@ js-did/packages/pkh-tezos/package.json
 cd js-did/packages/pkh-tezos
 pnpm pack
 ```
+
+@didtools/did-session 库
 
 ```
 # 根目录下
