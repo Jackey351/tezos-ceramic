@@ -31,9 +31,9 @@ function App() {
       let activeAccount = permissions;
     }
     console.log(activeAccount!.publicKey);
-    const address = activeAccount!.address;
-    console.log({ address });
-    const accountId = await getAccountId(tzProvider, address);
+    // const address = activeAccount!.address;
+    // console.log({ address });
+    const accountId = await getAccountId(tzProvider, activeAccount!.publicKey);
     console.log({ accountId });
     const authMethod = await TezosWebAuth.getAuthMethod(tzProvider, accountId);
 

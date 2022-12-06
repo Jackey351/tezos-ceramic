@@ -28,19 +28,19 @@ export async function verifyTezosSignature(cacao: Cacao, options: VerifyOptions)
 
   const payload = msg.signMessage()
 
-  const publicKey = await publicKeyFinder(issuerAddress)
+  // const publicKey = await publicKeyFinder(issuerAddress)
 
-  if (!verifySignature(payload, publicKey, signature)) {
+  if (!verifySignature(payload, issuerAddress, signature)) {
     throw new Error(`Signature does not belong to issuer`)
   }
 }
 
-async function publicKeyFinder(address: string): Promise<string> {
-  const response = await fetch(`https://api.tzstats.com/explorer/account/${address}`)
-  const json = await response.json()
-  const result = json.pubkey
-  if (result == null) {
-    throw new Error("public key not found")
-  }
-  return result
-}
+// async function publicKeyFinder(address: string): Promise<string> {
+//   const response = await fetch(`https://api.tzstats.com/explorer/account/${address}`)
+//   const json = await response.json()
+//   const result = json.pubkey
+//   if (result == null) {
+//     throw new Error("public key not found")
+//   }
+//   return result
+// }
