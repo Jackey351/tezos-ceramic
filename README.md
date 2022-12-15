@@ -4,26 +4,6 @@
 
 给 Ceramic 添加链支持的文档见此[链接](https://did.js.org/docs/guides/add-chain-support)
 
-## 现有代码
-
-- 根据参数产生 siwx 结构化签名的代码见 `js-did/packages/cacao/src/siwx/siwTezos.ts`
-- 根据 siwx 产生 cacao 对象的方法见 `js-did/packages/cacao/src/cacao.ts` 文件中的 `fromSiwTezosMessage` 方法
-- 签名 siwx 和 cacao 对象的方法见 `js-did/packages/pkh-tezos/src/authmethod.ts`
-- 验证 cacao 对象的方法见 `js-did/packages/pkh-tezos/src/verifier.ts`
-- 演示的 demo 代码见 `js-did/demo/demo1/src/App.tsx`，演示了如何拉起钱包生成 cacao 对象，然后验证 cacao 对象
-
-## 仍需解决的问题
-
-- 提交 [CAIP10 spec](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-10.md)
-- 提交 [CAIP122 spec](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-122.md)
-
-## 可能存在的问题
-
-- 现有代码只考虑了 Tezos tz1 账户类型，除此之外 Tezos 还有 tz2、tz3、kt 账户不清楚是否需要支持
-- Tezos 的验签需要传入账户的 PK (public key)，而 cacao 对象里只记录了 Tezos 账户的 address，而没有 address 对应的 PK，现在的解决方式是验签时向 tzstats 的 API 发请求来查询 address 对应的 PK，这样的影响就是只有在 tzstats 能查到 PK 的 address 才能被 ceramic 节点验证。经测试，新账户充值余额，然后发起一笔转账交易后，其 PK 就能在 tzstats 被查到。
-
-<br />
-
 # 测试说明
 
 ## 1. 安装 js-did 的依赖

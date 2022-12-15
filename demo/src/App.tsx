@@ -50,8 +50,9 @@ function App() {
     console.log({ session });
     console.log({ signature: session.cacao.s.s });
 
-    await verifyTezosSignature(session.cacao, {});
-    console.log("signature verified");
+    // //前端模拟验证签名
+    // await verifyTezosSignature(session.cacao, {});
+    // console.log("signature verified");
 
     const ceramic = new CeramicClient("http://127.0.0.1:7007");
     ceramic.did = session.did;
