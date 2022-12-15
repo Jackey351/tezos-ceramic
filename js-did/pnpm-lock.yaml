@@ -149,7 +149,7 @@ importers:
 
   packages/dids:
     specifiers:
-      '@didtools/cacao': workspace:^1.0.1
+      '@didtools/cacao': file:/Users/hedongliu/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz
       '@didtools/pkh-ethereum': workspace:^0.0.2
       '@stablelib/random': ^1.0.1
       '@stablelib/x25519': ^1.0.2
@@ -161,7 +161,7 @@ importers:
       rpc-utils: ^0.6.1
       uint8arrays: ^3.0.0
     dependencies:
-      '@didtools/cacao': link:../cacao
+      '@didtools/cacao': file:packages/cacao/didtools-cacao-1.0.1.tgz
       '@didtools/pkh-ethereum': link:../pkh-ethereum
       '@stablelib/random': 1.0.2
       dag-jose-utils: 2.0.0
@@ -16949,12 +16949,12 @@ packages:
       uint8arrays: 4.0.2
 
   file:packages/dids/dids-3.4.1.tgz:
-    resolution: {integrity: sha512-TY5iIIPIyozlrsqagDZsTBowr8lBQRgzZyom/ivdzEYlKZeHMeJ00qSbQR9mQY4hTBR8WWacHu36ICnCOft/Zw==, tarball: file:packages/dids/dids-3.4.1.tgz}
+    resolution: {integrity: sha512-2ou3C4zmXQvqPl6DrBPoVJJQH5YS0U9MolVuwkKqU9fRz3ayG9YhJyD26CDZVgbvw6Tmo5fup16k6R7SirIhkg==, tarball: file:packages/dids/dids-3.4.1.tgz}
     name: dids
     version: 3.4.1
     engines: {node: '>=14.14'}
     dependencies:
-      '@didtools/cacao': 1.0.0
+      '@didtools/cacao': file:packages/cacao/didtools-cacao-1.0.1.tgz
       '@didtools/pkh-ethereum': 0.0.2
       '@stablelib/random': 1.0.2
       dag-jose-utils: 2.0.0

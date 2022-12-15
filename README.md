@@ -152,3 +152,6 @@ pnpm run dev
 
 ![](https://bafybeidyao62nh2iteajcx3ze3b2bwa722ybmuw7utm7pr7qy43fmy2w5y.ipfs.w3s.link/1669387971.jpg)
 
+## 注： 代码修改
+
+若修改了 js-dids 里 cacao、did、pkh-tezos 库的代码，则需要重复步骤1-步骤9，使改动生效。
