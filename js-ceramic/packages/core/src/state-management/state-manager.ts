@@ -14,10 +14,11 @@ import {
   RunningStateLike,
   DiagnosticsLogger,
   StreamUtils,
+  GenesisCommit,
 } from '@ceramicnetwork/common'
 import { RunningState } from './running-state.js'
 import type { CID } from 'multiformats/cid'
-import { catchError, concatMap, takeUntil } from 'rxjs/operators'
+import { catchError, concatMap, takeUntil, tap } from 'rxjs/operators'
 import { empty, Observable, Subject, Subscription, timer, lastValueFrom, merge, of } from 'rxjs'
 import { SnapshotState } from './snapshot-state.js'
 import { CommitID, StreamID } from '@ceramicnetwork/streamid'
@@ -106,18 +107,6 @@ export class StateManager {
   }
 
   /**
-   * If it is a lone genesis, verify the signature.
-   * @param state$
-   */
-  async verifyLoneGenesis(state$: RunningState): Promise<RunningState> {
-    if (state$.value.log.length > 1) {
-      return state$
-    }
-    await this.conflictResolution.verifyLoneGenesis(state$.value)
-    return state$
-  }
-
-  /**
    * Take the version of a stream state and a specific commit and returns a snapshot of a state
    * at the requested commit. If the requested commit is for a branch of history that conflicts with the
    * known commits, throw an error. If the requested commit is ahead of the currently known state
@@ -160,11 +149,11 @@ export class StateManager {
    * @param opts - Initialization options (request anchor, publish to pubsub, etc.)
    * @private
    */
-  applyWriteOpts(state$: RunningState, opts: CreateOpts | UpdateOpts) {
+  async applyWriteOpts(state$: RunningState, opts: CreateOpts | UpdateOpts): Promise<void> {
     const anchor = (opts as any).anchor
     const publish = (opts as any).publish
     if (anchor) {
-      this.anchor(state$)
+      await this.anchor(state$)
     }
     if (publish) {
       this.publishTip(state$)
@@ -324,17 +313,19 @@ export class StateManager {
   /**
    * Request anchor for the latest stream state
    */
-  anchor(state$: RunningState): Subscription {
+  async anchor(state$: RunningState): Promise<void> {
     if (!this.anchorService) {
       throw new Error(
         `Anchor requested for stream ${state$.id.toString()} but anchoring is disabled`
       )
     }
     if (state$.value.anchorStatus == AnchorStatus.ANCHORED) {
-      return Subscription.EMPTY
+      return
     }
+
+    await this._saveAnchorRequestForState(state$)
     const anchorStatus$ = this.anchorService.requestAnchor(state$.id, state$.tip)
-    return this._processAnchorResponse(state$, anchorStatus$)
+    this._processAnchorResponse(state$, anchorStatus$)
   }
 
   /**
@@ -343,6 +334,17 @@ export class StateManager {
   confirmAnchorResponse(state$: RunningState): Subscription {
     const anchorStatus$ = this.anchorService.pollForAnchorResponse(state$.id, state$.tip)
     return this._processAnchorResponse(state$, anchorStatus$)
+  }
+
+  private async _saveAnchorRequestForState(state$: RunningState): Promise<void> {
+    await this.anchorRequestStore.save(state$.id, {
+      cid: state$.tip,
+      timestamp: Date.now(),
+      genesis: (await this.dispatcher.retrieveCommit(
+        state$.value.log[0].cid, // genesis commit CID
+        state$.id
+      )) as GenesisCommit,
+    })
   }
 
   private _processAnchorResponse(
@@ -364,7 +366,6 @@ export class StateManager {
             // the stream's state.
             return
           }
-
           switch (asr.status) {
             case AnchorStatus.PENDING: {
               const next = {
@@ -382,6 +383,7 @@ export class StateManager {
             }
             case AnchorStatus.ANCHORED: {
               await this._handleAnchorCommit(state$, asr.cid, asr.anchorCommit)
+              await this.anchorRequestStore.remove(state$.id)
               stopSignal.next()
               return
             }
@@ -392,6 +394,7 @@ export class StateManager {
                 }`
               )
               state$.next({ ...state$.value, anchorStatus: AnchorStatus.FAILED })
+              await this.anchorRequestStore.remove(state$.id)
               stopSignal.next()
               return
             }
