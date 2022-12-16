@@ -2276,7 +2276,7 @@ packages:
     dev: false
 
   file:../js-did/packages/pkh-tezos/didtools-pkh-tezos-0.0.1.tgz:
-    resolution: {integrity: sha512-k1JLopf++MsZAcdtaU8Pa5ObMDhGtgYmnSdIKGr+MLogPjJeKiZTWGEbBrX+DbGkSWgYOJWGp7F+v1jOfaE4FA==, tarball: file:../js-did/packages/pkh-tezos/didtools-pkh-tezos-0.0.1.tgz}
+    resolution: {integrity: sha512-iCD2Ryzj8j7GbEykzMMsfnuuEXeZRmii9adEY27MhZ3OAD7+La2YM2zq8tt8ITL4k0oG9gyg6fyow9vfidx+DA==, tarball: file:../js-did/packages/pkh-tezos/didtools-pkh-tezos-0.0.1.tgz}
     name: '@didtools/pkh-tezos'
     version: 0.0.1
     engines: {node: '>=14.14'}

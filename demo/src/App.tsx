@@ -7,6 +7,7 @@ import {
   TezosWebAuth,
   getAccountId,
   verifyTezosSignature,
+  getPublicKey,
 } from "@didtools/pkh-tezos";
 import { DAppClient, NetworkType } from "@airgap/beacon-sdk";
 import { CeramicClient } from "@ceramicnetwork/http-client";
@@ -36,8 +37,12 @@ function App() {
       });
     }
     // await tzProvider.clearActiveAccount();
-    console.log({ tzProvider });
 
+    // const res = await getPublicKey(tzProvider);
+    // console.log(res);
+
+    console.log({ tzProvider });
+    
     let activeAccount = await tzProvider.getActiveAccount();
     let publicKey;
     let address;

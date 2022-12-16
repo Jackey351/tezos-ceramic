@@ -36,7 +36,7 @@ export type SupportedProvider = {
     signingType: string
     payload: string
   }) => Promise<{ signature: string }>
-  getActiveAccount: () => Promise<{ network: { type: TezosNetwork } }>
+  getActiveAccount: () => Promise<{ network: { type: TezosNetwork }; publicKey: string }>
 }
 
 export function assertSupportedProvider(tzProvider: any): asserts tzProvider is SupportedProvider {
