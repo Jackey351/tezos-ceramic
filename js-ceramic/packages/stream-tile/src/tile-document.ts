@@ -372,7 +372,7 @@ export class TileDocument<T = Record<string, any>> extends Stream {
       }
     }
 
-    const patch = jsonpatch.compare(this.content, newContent)
+    const patch = jsonpatch.compare(this.content as Object | any[], newContent as Object | any[])
     const genesisLogEntry = this.state.log[0]
     return {
       header,
