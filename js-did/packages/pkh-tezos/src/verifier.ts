@@ -8,7 +8,6 @@ import {
   Verifiers,
 } from '@didtools/cacao'
 import { AccountId } from 'caip'
-import { assertSupportedConnection } from './authmethod'
 
 export function getTezosVerifier(): Verifiers {
   return {
@@ -40,10 +39,4 @@ export async function verifyTezosSignature(cacao: Cacao, options: VerifyOptions)
   if (!verifySignature(payload, publicKey, signature)) {
     throw new Error(`Signature does not belong to issuer`)
   }
-}
-
-export async function getPublicKey(tzProvider: any): Promise<string> {
-  assertSupportedConnection(tzProvider)
-  const activeAccount = await tzProvider.getActiveAccount()
-  return activeAccount.publicKey
 }

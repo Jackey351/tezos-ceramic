@@ -2,7 +2,7 @@ import { AccountId } from 'caip'
 import { randomString } from '@stablelib/random'
 import { Cacao, SiwTezosMessage, AuthMethod, AuthMethodOpts } from '@didtools/cacao'
 
-export const TEZOS_MAINNET_CHAIN_REF = 'NetXdQprcVkpaWU' // Tezos mainnet beta
+export const TEZOS_MAINNET_CHAIN_REF = 'NetXdQprcVkpaWU' // Tezos mainnet
 export const TEZOS_DEVNET_CHAIN_REF = 'NetXm8tYqnMWky1' // Tezos devnet
 export const VERSION = '1'
 export const CHAIN_NAMESPACE = 'tezos'
@@ -15,18 +15,14 @@ export const chainIdMap = {
 type TezosNetwork = 'mainnet' | 'devnet'
 
 export namespace TezosWebAuth {
-  export async function getAuthMethod(
-    tzProvider: any,
-    account: AccountId,
-    publicKey: string
-  ): Promise<AuthMethod> {
+  export async function getAuthMethod(tzProvider: any, account: AccountId): Promise<AuthMethod> {
     if (typeof window === 'undefined')
       throw new Error('Web Auth method requires browser environment')
     const domain = (window as Window).location.hostname
 
     return async (opts: AuthMethodOpts): Promise<Cacao> => {
       opts.domain = domain
-      return createCACAO(opts, tzProvider, account, publicKey)
+      return createCACAO(opts, tzProvider, account)
     }
   }
 }
@@ -67,8 +63,7 @@ async function sign(tzProvider: any, message: string) {
 async function createCACAO(
   opts: AuthMethodOpts,
   tzProvider: any,
-  account: AccountId,
-  publicKey: string
+  account: AccountId
 ): Promise<Cacao> {
   const now = new Date()
   const oneWeekLater = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
@@ -88,6 +83,7 @@ async function createCACAO(
 
   const signData = siwTezosMessage.signMessage()
   const signature = await sign(tzProvider, signData)
+  const publicKey = await getPublicKey(tzProvider)
   siwTezosMessage.signature = signature + publicKey
   return Cacao.fromSiwTezosMessage(siwTezosMessage)
 }
@@ -96,7 +92,7 @@ export async function requestChainId(tzProvider: any): Promise<string> {
   assertSupportedConnection(tzProvider)
   const activeAccount = await tzProvider.getActiveAccount()
   const network = activeAccount.network.type
-  return chainIdMap[network] || chainIdMap['devnet']
+  return chainIdMap[network]
 }
 
 export async function getAccountId(tzProvider: any, address: string): Promise<AccountId> {
@@ -106,6 +102,12 @@ export async function getAccountId(tzProvider: any, address: string): Promise<Ac
 }
 
 export function getAccountIdByNetwork(network: TezosNetwork, address: string): AccountId {
-  const chainId = `${CHAIN_NAMESPACE}:${chainIdMap[network] || chainIdMap['devnet']}`
+  const chainId = `${CHAIN_NAMESPACE}:${chainIdMap[network]}`
   return new AccountId({ address, chainId })
+}
+
+export async function getPublicKey(tzProvider: any): Promise<string> {
+  assertSupportedConnection(tzProvider)
+  const activeAccount = await tzProvider.getActiveAccount()
+  return activeAccount.publicKey
 }

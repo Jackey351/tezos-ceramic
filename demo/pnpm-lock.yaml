@@ -1870,8 +1870,8 @@ packages:
       '@multiformats/base-x': 4.0.1
     dev: false
 
-  /multiformats/10.0.2:
-    resolution: {integrity: sha512-nJEHLFOYhO4L+aNApHhCnWqa31FyqAHv9Q77AhmwU3KsM2f1j7tuJpCk5ByZ33smzycNCpSG5klNIejIyfFx2A==}
+  /multiformats/10.0.3:
+    resolution: {integrity: sha512-K2yGSmstS/oEmYiEIieHb53jJCaqp4ERPDQAYrm5sV3UUrVDZeshJQCK6GHAKyIGufU1vAcbS0PdAAZmC7Tzcw==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dev: false
 
@@ -2159,7 +2159,7 @@ packages:
     resolution: {integrity: sha512-8CWXXZdOvVrIL4SeY/Gnp+idxxiGK4XFkP4FY26Sx/fpTz/b6vv4BVWELMDzQweSyyhdcuAcU14H6izzB6k1Cw==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
-      multiformats: 10.0.2
+      multiformats: 10.0.3
     dev: false
 
   /update-browserslist-db/1.0.10_browserslist@4.21.4:
@@ -2276,7 +2276,7 @@ packages:
     dev: false
 
   file:../js-did/packages/pkh-tezos/didtools-pkh-tezos-0.0.1.tgz:
-    resolution: {integrity: sha512-iCD2Ryzj8j7GbEykzMMsfnuuEXeZRmii9adEY27MhZ3OAD7+La2YM2zq8tt8ITL4k0oG9gyg6fyow9vfidx+DA==, tarball: file:../js-did/packages/pkh-tezos/didtools-pkh-tezos-0.0.1.tgz}
+    resolution: {integrity: sha512-aMYRu1Y8f7Q6PiJ5RExxF0qKwX8ePiFZuS62L9/KWDz2syhiEy4WLfgFezTAmleu6bK8z//4ugszf9EyAUitHw==, tarball: file:../js-did/packages/pkh-tezos/didtools-pkh-tezos-0.0.1.tgz}
     name: '@didtools/pkh-tezos'
     version: 0.0.1
     engines: {node: '>=14.14'}

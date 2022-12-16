@@ -1,80 +1,45 @@
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 import "./App.css";
 
 import { DIDSession } from "did-session";
-import {
-  TezosWebAuth,
-  getAccountId,
-  verifyTezosSignature,
-  getPublicKey,
-} from "@didtools/pkh-tezos";
-import { DAppClient, NetworkType } from "@airgap/beacon-sdk";
+import { TezosWebAuth, getAccountId } from "@didtools/pkh-tezos";
+import { DAppClient } from "@airgap/beacon-sdk";
 import { CeramicClient } from "@ceramicnetwork/http-client";
 import { TileDocument } from "@ceramicnetwork/stream-tile";
 
 let tzProvider: DAppClient;
 
-// MAINNET = "mainnet",
-// GHOSTNET = "ghostnet",
-// MONDAYNET = "mondaynet",(invalid)
-// DAILYNET = "dailynet",(invalid)
-// DELPHINET = "delphinet",(invalid)
-// EDONET = "edonet",(invalid)
-// FLORENCENET = "florencenet",(invalid)
-// GRANADANET = "granadanet",(invalid)
-// HANGZHOUNET = "hangzhounet",(invalid)
-// ITHACANET = "ithacanet",(invalid)
-// JAKARTANET = "jakartanet",
-// KATHMANDUNET = "kathmandunet",
-// CUSTOM = "custom"
 function App() {
   const handleTest = async () => {
     if (!tzProvider) {
       tzProvider = new DAppClient({
         name: "my dapp",
-        preferredNetwork: NetworkType.JAKARTANET,
       });
     }
     // await tzProvider.clearActiveAccount();
 
-    // const res = await getPublicKey(tzProvider);
-    // console.log(res);
-
     console.log({ tzProvider });
-    
+
     let activeAccount = await tzProvider.getActiveAccount();
-    let publicKey;
     let address;
     let network;
     console.log({ activeAccount });
     if (activeAccount) {
-      publicKey = activeAccount.publicKey;
       address = activeAccount.address;
       network = activeAccount.network.type;
     } else {
-      const permissions = await tzProvider.requestPermissions({
-        network: {
-          type: NetworkType.JAKARTANET,
-        },
-      });
+      const permissions = await tzProvider.requestPermissions();
       console.log({ permissions });
-      publicKey = permissions.publicKey;
       address = permissions.address;
       network = permissions.network.type;
     }
 
-    console.log({ publicKey });
     console.log({ address });
     console.log({ network });
 
     const accountId = await getAccountId(tzProvider, address);
     console.log({ accountId });
-    const authMethod = await TezosWebAuth.getAuthMethod(
-      tzProvider,
-      accountId,
-      publicKey
-    );
+    const authMethod = await TezosWebAuth.getAuthMethod(tzProvider, accountId);
 
     const session = await DIDSession.authorize(authMethod, {
       resources: ["ceramic://*"],
