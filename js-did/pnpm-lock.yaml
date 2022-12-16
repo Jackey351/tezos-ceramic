@@ -107,7 +107,7 @@ importers:
       '@ceramicnetwork/stream-model-instance': ^0.4.2
       '@ceramicnetwork/stream-tile': ^2.4.4
       '@ceramicnetwork/streamid': ^2.3.4
-      '@didtools/cacao': file:/Users/hedongliu/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz
+      '@didtools/cacao': workspace:^1.0.0
       '@didtools/pkh-ethereum': workspace:^0.0.3
       '@didtools/pkh-solana': workspace:^0.0.4
       '@ethersproject/wallet': ^5.6.2
@@ -149,7 +149,7 @@ importers:
 
   packages/dids:
     specifiers:
-      '@didtools/cacao': file:/Users/hedongliu/Documents/GitHub/tezos-ceramic/js-did/packages/cacao/didtools-cacao-1.0.1.tgz
+      '@didtools/cacao': workspace:^1.0.0
       '@didtools/pkh-ethereum': workspace:^0.0.3
       '@stablelib/random': ^1.0.1
       '@stablelib/x25519': ^1.0.2
@@ -2439,8 +2439,8 @@ packages:
       '@stablelib/random': 1.0.2
       caip: 1.1.0
 
-  /@didtools/pkh-ethereum/0.0.3:
-    resolution: {integrity: sha512-+hfVzkk6fd0CifgdNzQ+og2B1q8O7Wmx3IZQz1wejQH8HfjRX0tNL41aw5Df6T9Vzps0R45ULnY46SVdmORg3A==}
+  /@didtools/pkh-ethereum/0.0.2:
+    resolution: {integrity: sha512-ka+iwlvBCVQqO3btZ1wssAm0VmG25nqZkD1rSV5IRT8LNAvne2cjKzt/hMutK9PULMD/yJRifwFupgfu7JI9Cg==}
     engines: {node: '>=14.14'}
     dependencies:
       '@didtools/cacao': 1.0.0
@@ -16949,13 +16949,13 @@ packages:
       uint8arrays: 4.0.2
 
   file:packages/dids/dids-3.4.1.tgz:
-    resolution: {integrity: sha512-bDmIyVMAhucecG13tmEiY81bLGIzLszBIQO5DDmL6mR6USr92F6fWKEIOA0MvJkop3TK4DLfpplctHcbdfXeGw==, tarball: file:packages/dids/dids-3.4.1.tgz}
+    resolution: {integrity: sha512-2ou3C4zmXQvqPl6DrBPoVJJQH5YS0U9MolVuwkKqU9fRz3ayG9YhJyD26CDZVgbvw6Tmo5fup16k6R7SirIhkg==, tarball: file:packages/dids/dids-3.4.1.tgz}
     name: dids
     version: 3.4.1
     engines: {node: '>=14.14'}
     dependencies:
       '@didtools/cacao': file:packages/cacao/didtools-cacao-1.0.1.tgz
-      '@didtools/pkh-ethereum': 0.0.3
+      '@didtools/pkh-ethereum': 0.0.2
       '@stablelib/random': 1.0.2
       dag-jose-utils: 2.0.0
       did-jwt: 6.9.0
