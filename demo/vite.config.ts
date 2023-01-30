@@ -1,16 +1,16 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
-import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
+import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     esbuildOptions: {
-      target: 'es2020',
+      target: "es2020",
       define: {
-        global: 'globalThis',
+        global: "globalThis",
       },
       plugins: [
         NodeGlobalsPolyfillPlugin({
@@ -21,8 +21,9 @@ export default defineConfig({
       ],
     },
   },
+  build: { target: "es2020" },
   server: {
     port: 5173,
-    host: '0.0.0.0',
+    host: "0.0.0.0",
   },
-})
+});
